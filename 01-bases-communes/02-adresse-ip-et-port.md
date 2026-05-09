@@ -57,7 +57,7 @@ Dans ce TP, on utilisera toujours le port **4210**.
 
 ## Trouver son adresse IP
 
-Ouvre le terminal VSCode (`Ctrl + ù`) et tape :
+Ouvre le terminal VSCode (**Terminal → New Terminal**) et tape :
 
 ```bash
 ipconfig

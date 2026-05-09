@@ -38,28 +38,13 @@ Ces actions se font beaucoup plus facilement en tapant une commande que par un c
 
 ## Comment ouvrir le terminal dans VSCode
 
-### Méthode 1 — Raccourci clavier (le plus rapide)
-
-Sur un clavier **français (AZERTY)** :
+Via le menu en haut :
 
 ```
-Ctrl + ù
+Terminal  →  New Terminal
 ```
 
-> [!TIP]
-> La touche `ù` est juste à droite de la touche `*` (étoile), en haut à gauche du clavier, juste avant Backspace.
-
-### Méthode 2 — Via le menu
-
-```
-Affichage  →  Terminal
-```
-
-### Méthode 3 — Via le menu Terminal
-
-```
-Terminal  →  Nouveau terminal
-```
+Une zone noire apparaît en bas de VSCode. C'est le terminal !
 
 ---
 
@@ -111,12 +96,12 @@ Le terminal permet d'envoyer des commandes texte à l'ordinateur, sans utiliser 
 
 </details>
 
-**Question 2 :** Quel raccourci clavier ouvre le terminal dans VSCode sur un clavier AZERTY ?
+**Question 2 :** Comment ouvre-t-on le terminal dans VSCode ?
 
 <details>
 <summary>💡 Voir la réponse</summary>
 
-**Ctrl + ù**
+Via le menu **Terminal → New Terminal** en haut de VSCode.
 
 </details>
 

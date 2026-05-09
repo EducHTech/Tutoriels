@@ -55,7 +55,7 @@ Clique sur **Installer** puis **Terminer**.
 ## Vérifier que ça marche
 
 1. Ouvre VSCode
-2. Ouvre le terminal intégré : `Ctrl + ù`
+2. Ouvre le terminal : **Terminal → New Terminal**
 3. Tu dois voir une fenêtre noire en bas avec un curseur qui clignote
 
 ---
@@ -64,12 +64,12 @@ Clique sur **Installer** puis **Terminer**.
 
 - [ ] VSCode est installé
 - [ ] Je peux l'ouvrir
-- [ ] J'ai ouvert le terminal avec `Ctrl + ù`
+- [ ] J'ai ouvert le terminal via Terminal → New Terminal
 
 ---
 
-> [!WARNING]
-> Si le terminal ne s'ouvre pas avec `Ctrl + ù`, essaie via le menu : **Affichage → Terminal**
+> [!TIP]
+> Si tu ne trouves pas le menu Terminal, essaie **Affichage → Terminal**.
 
 ---
 

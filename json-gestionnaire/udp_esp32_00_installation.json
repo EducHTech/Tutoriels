@@ -1,0 +1,61 @@
+{
+  "id": "udp-esp32-00-setup",
+  "title": "TP UDP ESP32 — 0. Installation des outils",
+  "authorName": "Yann le Chevoir",
+  "category": "Programmation",
+  "description": "À faire UNE SEULE FOIS avant de commencer le TP. Si tout est déjà installé, passe directement au tuto « 1. Bases réseau ».",
+  "coverImageId": null,
+  "estimatedMinutes": 30,
+  "steps": [
+    {
+      "id": "setup-01",
+      "title": "C'est quoi le terminal ?",
+      "text": "Le terminal, c'est comme l'explorateur de fichiers, mais en TEXTE : au lieu de cliquer, tu tapes des commandes.\n\nPourquoi on s'en sert ?\n- lancer un programme Python :  python mon_script.py\n- installer une bibliothèque :  pip install pygame\n- vérifier qu'un outil est installé :  python --version\n\nOuvrir le terminal dans VSCode :\n- Via le menu : Terminal -> New Terminal\n- Ou via le menu : Affichage -> Terminal\n\nTeste en tapant cette commande puis Entrée :\n  echo Bonjour le terminal !",
+      "imageId": null,
+      "sectionId": "sec-setup-base"
+    },
+    {
+      "id": "setup-02",
+      "title": "Installer VSCode",
+      "text": "VSCode (Visual Studio Code) est l'éditeur de code dans lequel tu vas écrire tes programmes Python.\n\nDéjà installé ? Tape 'code' dans le menu Démarrer. Si VSCode s'ouvre → c'est bon, étape suivante.\n\nSinon :\n1. Va sur https://code.visualstudio.com/\n2. Clique sur 'Download for Windows'\n3. Lance l'installeur, coche 'Ajouter à PATH'\n4. Clique sur Installer puis Terminer\n\nVérifie : ouvre VSCode et fais Ctrl+ù pour ouvrir le terminal.\n\nATTENTION : VSCode n'est PAS Visual Studio. On utilise Visual Studio CODE (le léger, gratuit).",
+      "imageId": null,
+      "sectionId": "sec-setup-base"
+    },
+    {
+      "id": "setup-03",
+      "title": "Installer Python",
+      "text": "Déjà installé ? Dans le terminal VSCode, tape :\n  python --version\nSi tu vois 'Python 3.x.x' → étape suivante.\n\nSinon :\n1. Va sur https://www.python.org/downloads/\n2. Clique sur 'Download Python 3.x.x'\n3. Lance l'installeur\n\nIMPORTANT : avant de cliquer 'Install Now', COCHE LA CASE 'Add Python.exe to PATH' tout en bas. Sans ça, Python ne marchera pas dans le terminal.\n\nVérification (ferme et rouvre le terminal) :\n  python --version\n  pip --version\n\npip est l'outil qui sert à installer des bibliothèques Python.",
+      "imageId": null,
+      "sectionId": "sec-setup-base"
+    },
+    {
+      "id": "setup-04",
+      "title": "Extension Python pour VSCode",
+      "text": "Une extension VSCode = un ajout qui améliore le logiciel. L'extension Python apporte coloration du code, autocomplétion et lancement direct des scripts.\n\n1. Dans VSCode, ouvre le panneau Extensions : Ctrl + Shift + X\n2. Tape 'Python' dans la barre de recherche\n3. Installe l'extension nommée 'Python' dont l'auteur est Microsoft\n\nIMPORTANT : vérifie bien que l'auteur est Microsoft. Il existe des extensions homonymes d'autres auteurs.\n\nVérifie : crée un fichier test.py et tape 'print('. Des suggestions doivent apparaître.",
+      "imageId": null,
+      "sectionId": "sec-setup-base"
+    },
+    {
+      "id": "setup-05",
+      "title": "Installer Git et cloner le dépôt",
+      "text": "Git est un outil de sauvegarde pour le code. Ici on s'en sert juste pour TÉLÉCHARGER les fichiers du TP.\n\nDéjà installé ?\n  git --version\n\nSinon :\n1. https://git-scm.com/download/win — le téléchargement démarre\n2. Lance l'installeur, laisse les options par défaut, clique Next jusqu'à la fin\n3. Ferme et rouvre VSCode, vérifie : git --version\n\nCloner le dépôt du TP :\n1. Dans le terminal, navigue vers ton dossier de travail :\n     cd C:\\Users\\TonPrenom\\Documents\n   ('cd' = changer de dossier, comme double-cliquer dans l'explorateur)\n2. Clone le dépôt (URL fournie par le prof) :\n     git clone <URL_DU_DEPOT>\n3. Ouvre le dossier créé dans VSCode : Fichier → Ouvrir le dossier\n\nPour mettre à jour les fichiers plus tard :\n  git pull",
+      "imageId": null,
+      "sectionId": "sec-setup-base"
+    },
+    {
+      "id": "setup-06",
+      "title": "Arduino IDE + ESP32 — Groupe B uniquement",
+      "text": "Cette étape n'est nécessaire QUE pour le Groupe B (programmation du robot ESP-WROOM-32).\n\n1. Télécharger Arduino IDE :\n   https://www.arduino.cc/en/software\n   Choisir 'Windows Win 10 and newer, 64 bits'.\n\n2. Ajouter l'URL des cartes ESP32 :\n   Fichier → Préférences → champ 'URL supplémentaires de gestionnaire de cartes'\n   Coller exactement :\n   https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json\n\n3. Installer le paquet :\n   Outils → Type de carte → Gestionnaire de cartes\n   Chercher 'esp32', installer 'esp32 by Espressif Systems'.\n   (cela peut prendre plusieurs minutes)\n\n4. Sélectionner la carte :\n   Outils → Type de carte → esp32 → ESP32 Dev Module\n   (l'ESP-WROOM-32 est reconnu sous ce nom)\n\n5. Sélectionner le port USB :\n   Outils → Port → COM3 (ou COM4, le numéro varie selon l'ordinateur)\n\n6. Ouvrir le Moniteur Série à 115200 bauds :\n   Outils → Moniteur série",
+      "imageId": null,
+      "sectionId": "sec-setup-esp32"
+    }
+  ],
+  "sections": [
+    { "id": "sec-setup-base", "title": "Outils de base (les deux groupes)" },
+    { "id": "sec-setup-esp32", "title": "Outils ESP32 (Groupe B uniquement)" }
+  ],
+  "createdAt": "2026-05-09T12:00:00.000Z",
+  "updatedAt": "2026-05-09T12:00:00.000Z"
+}
+
+

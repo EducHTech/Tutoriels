@@ -29,7 +29,7 @@ print("Bonjour, je suis le Groupe A !")
 
 ## Lancer le programme
 
-Ouvre le terminal VSCode (`Ctrl + ù`) et tape :
+Ouvre le terminal VSCode (**Terminal → New Terminal**) et tape :
 
 ```bash
 python hello.py

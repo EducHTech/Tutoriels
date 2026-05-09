@@ -8,7 +8,7 @@
 
 ## Déjà installé ?
 
-Ouvre le terminal VSCode (`Ctrl + ù`) et tape :
+Ouvre le terminal VSCode (**Terminal → New Terminal**) et tape :
 
 ```bash
 python --version
@@ -51,7 +51,7 @@ Clique sur **Close** quand c'est terminé.
 
 ## Vérifier l'installation
 
-Ferme le terminal s'il était déjà ouvert (croix sur le terminal), puis rouvre-le avec `Ctrl + ù`.
+Ferme le terminal s'il était déjà ouvert (croix sur le terminal), puis rouvre-le via **Terminal → New Terminal**.
 
 Tape :
 

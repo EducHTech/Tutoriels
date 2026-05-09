@@ -23,7 +23,7 @@ Si tu fais une erreur, tu peux revenir à la sauvegarde précédente.
 
 ## Déjà installé ?
 
-Ouvre le terminal VSCode (`Ctrl + ù`) et tape :
+Ouvre le terminal VSCode (**Terminal → New Terminal**) et tape :
 
 ```bash
 git --version
