@@ -19,10 +19,10 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
-// === À MODIFIER ===
-const char* WIFI_SSID = "NOM_DU_WIFI";
-const char* WIFI_PASSWORD = "MOT_DE_PASSE";
-// ==================
+// === Paramètres du hotspot ===
+const char* WIFI_SSID     = "Robot-ESP32";
+const char* WIFI_PASSWORD = "robot1234";
+// =============================
 
 const int LED_PIN = 2;
 
@@ -36,17 +36,10 @@ void setup()
 
     pinMode(LED_PIN, OUTPUT);
 
-    // Connexion Wi-Fi
-    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-    Serial.print("Connexion Wi-Fi");
-    while (WiFi.status() != WL_CONNECTED)
-    {
-        delay(500);
-        Serial.print(".");
-    }
-    Serial.println();
-    Serial.print("IP : ");
-    Serial.println(WiFi.localIP());
+    // Démarrer le hotspot Wi-Fi
+    WiFi.softAP(WIFI_SSID, WIFI_PASSWORD);
+    Serial.print("Hotspot actif. IP : ");
+    Serial.println(WiFi.softAPIP());
 
     udp.begin(4210);
     Serial.println("UDP prêt.");
@@ -91,13 +84,14 @@ void loop()
 ## Test
 
 1. Téléverse le programme
-2. Ouvre le Moniteur Série
-3. Depuis **Python** sur l'ordinateur, envoie des commandes :
+2. Ouvre le Moniteur Série — vérifie que tu vois `Hotspot actif. IP : 192.168.4.1`
+3. Connecte ton PC au Wi-Fi `Robot-ESP32` (mot de passe : `robot1234`)
+4. Depuis **Python** sur l'ordinateur, envoie des commandes :
 
 ```python
 import socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.sendto("LED_ON".encode(), ("192.168.X.XX", 4210))   # Ton IP ESP32
+sock.sendto("LED_ON".encode(), ("192.168.4.1", 4210))
 ```
 
 La LED doit s'allumer ! Teste aussi `LED_OFF` et `PING`.

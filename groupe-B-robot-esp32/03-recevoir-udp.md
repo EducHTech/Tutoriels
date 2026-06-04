@@ -9,7 +9,7 @@
 
 > [!IMPORTANT]
 > **🔄 Point de synchro 1** — quand ce programme fonctionne, préviens le Groupe A !
-> Donne-leur ton **adresse IP** et ils pourront t'envoyer des messages depuis leur `client.py`.
+> Dis-leur de se connecter au hotspot Wi-Fi **`Robot-ESP32`** (mot de passe : `robot1234`) — l'IP de l'ESP32 est toujours **`192.168.4.1`**.
 
 ---
 
@@ -19,10 +19,10 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
-// === À MODIFIER ===
-const char* WIFI_SSID = "NOM_DU_WIFI";
-const char* WIFI_PASSWORD = "MOT_DE_PASSE";
-// ==================
+// === Paramètres du hotspot ===
+const char* WIFI_SSID     = "Robot-ESP32";
+const char* WIFI_PASSWORD = "robot1234";
+// =============================
 
 WiFiUDP udp;
 char messageRecu[255];
@@ -32,17 +32,10 @@ void setup()
     Serial.begin(115200);
     delay(500);
 
-    // Connexion Wi-Fi
-    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-    Serial.print("Connexion Wi-Fi");
-    while (WiFi.status() != WL_CONNECTED)
-    {
-        delay(500);
-        Serial.print(".");
-    }
-    Serial.println();
-    Serial.print("IP : ");
-    Serial.println(WiFi.localIP());
+    // Démarrer le hotspot Wi-Fi
+    WiFi.softAP(WIFI_SSID, WIFI_PASSWORD);
+    Serial.print("Hotspot actif. IP : ");
+    Serial.println(WiFi.softAPIP());
 
     // Démarrer UDP sur le port 4210
     udp.begin(4210);
@@ -74,9 +67,9 @@ void loop()
 
 1. Téléverse ce programme
 2. Ouvre le Moniteur Série (115200)
-3. Note l'IP affichée
-4. **Préviens le Groupe A** de ton IP
-5. Le Groupe A lance `client.py` avec ton IP → tu dois voir le message dans le Moniteur Série
+3. Vérifie que tu vois `Hotspot actif. IP : 192.168.4.1`
+4. **Préviens le Groupe A** : dis-leur de connecter leur PC au Wi-Fi `Robot-ESP32` (mot de passe : `robot1234`)
+5. Le Groupe A lance `client.py` en ciblant l'IP `192.168.4.1` → tu dois voir le message dans le Moniteur Série
 
 ---
 
@@ -118,14 +111,15 @@ Un **tableau de 255 caractères**. En C++, les textes sont stockés ainsi (pas c
 ## Cases à cocher
 
 - [ ] Le programme se téléverse
-- [ ] L'IP s'affiche dans le Moniteur Série
-- [ ] J'ai communiqué l'IP au Groupe A
+- [ ] Le Moniteur Série affiche `Hotspot actif. IP : 192.168.4.1`
+- [ ] Le réseau Wi-Fi `Robot-ESP32` est visible depuis mon PC
+- [ ] J'ai prévenu le Groupe A (connectez-vous à `Robot-ESP32`, mot de passe `robot1234`)
 - [ ] Le message envoyé par le Groupe A apparaît dans le Moniteur Série
 
 ---
 
 > [!TIP]
-> Si tu veux tester sans le Groupe A, utilise `sender.py` depuis ton propre ordinateur en changeant l'IP destination par celle de ton ESP32.
+> Si tu veux tester sans le Groupe A : connecte **ton propre PC** au hotspot `Robot-ESP32`, puis lance `sender.py` en ciblant l'IP `192.168.4.1`.
 
 ---
 

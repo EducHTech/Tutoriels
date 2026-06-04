@@ -97,11 +97,12 @@ Essaie chaque option du menu !
 
 Quand le Groupe B signale que l'ESP32 répond à `LED_ON` / `LED_OFF` :
 
-1. Note l'adresse IP de l'ESP32 (le Groupe B te la donne)
-2. Modifie la ligne dans `driver_station.py` :
+1. Connecte ton PC au Wi-Fi **`Robot-ESP32`** (mot de passe : `robot1234`)
+   > C'est le hotspot créé par l'ESP32. Tu perdras l'accès à Internet, c'est normal.
+2. L'IP de l'ESP32 est toujours **`192.168.4.1`**. Modifie la ligne dans `driver_station.py` :
 
 ```python
-ROBOT_IP = "192.168.X.XX"   # IP réelle de l'ESP32
+ROBOT_IP = "192.168.4.1"   # IP fixe de l'ESP32 (hotspot)
 ```
 
 3. Relance et teste — la LED doit s'allumer/s'éteindre pour de vrai !

@@ -21,7 +21,7 @@
 | Téléversement échoue (Connecting...) | Boot non déclenché | Appuie sur le bouton BOOT pendant le téléversement |
 | Port COM absent | Drivers USB manquants | Installe les drivers CP2102 ou CH340 selon ta carte |
 | Aucune carte ESP32 dans la liste | Boards non installées | Refaire l'étape gestionnaire de cartes |
-| Wi-Fi ne se connecte pas | SSID/mot de passe erroné ou réseau 5 GHz | Vérifie les identifiants ; utilise un réseau 2.4 GHz |
+| Wi-Fi ne se connecte pas | — | L'ESP32 crée son propre hotspot, pas besoin de routeur. Vérifie que le réseau `Robot-ESP32` apparaît dans la liste Wi-Fi. |
 | Moniteur Série illisible | Mauvaise vitesse | Mets 115200 en bas à droite du moniteur |
 | Caractères parasites dans le message | `\0` manquant | Ajoute `messageRecu[longueur] = '\0';` après `read()` |
 
@@ -40,11 +40,11 @@ Cherche la ligne "Adresse IPv4" sous l'interface Wi-Fi.
 ### Tester la connectivité réseau
 
 ```bash
-ping 192.168.1.50
+ping 192.168.4.1
 ```
 
-Remplace l'IP par celle de l'ESP32.
-Si tu reçois des réponses → les deux appareils sont bien sur le même réseau.
+Remplace l'IP si besoin (mais en mode hotspot c'est toujours `192.168.4.1`).
+Si tu reçois des réponses → ton PC est bien connecté au hotspot de l'ESP32.
 
 ### Vérifier Python
 
@@ -69,10 +69,11 @@ git --version
 
 ---
 
-## Je ne sais pas sur quel réseau est l'ESP32
+## Je ne sais pas quelle est l'IP de l'ESP32
 
-Ouvre le Moniteur Série (115200) et appuie sur le bouton **EN** de l'ESP32 pour le redémarrer.
-L'adresse IP s'affiche dans les premières lignes.
+En mode hotspot, l'ESP32 a **toujours** l'adresse IP `192.168.4.1`. Pas besoin de la chercher.
+
+Si tu veux le confirmer : ouvre le Moniteur Série (115200) et appuie sur le bouton **EN** de l'ESP32 pour le redémarrer. La ligne `Hotspot actif. IP : 192.168.4.1` s'affiche.
 
 ---
 

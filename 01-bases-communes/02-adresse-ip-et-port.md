@@ -27,7 +27,7 @@ Réseau Wi-Fi  =  une ville
 Adresse IP    =  l'adresse de ta maison dans cette ville
 ```
 
-Ton ordinateur a une adresse IP. L'ESP32 en aura une aussi quand il sera connecté au Wi-Fi.
+Ton ordinateur a une adresse IP. L'ESP32 en aura une aussi — et comme il crée son propre hotspot Wi-Fi, son adresse sera **toujours `192.168.4.1`**.
 
 ---
 

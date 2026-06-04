@@ -19,10 +19,10 @@
 #include <WiFi.h>
 #include <WiFiUdp.h>
 
-// === À MODIFIER ===
-const char* WIFI_SSID = "NOM_DU_WIFI";
-const char* WIFI_PASSWORD = "MOT_DE_PASSE";
-// ==================
+// === Paramètres du hotspot ===
+const char* WIFI_SSID     = "Robot-ESP32";
+const char* WIFI_PASSWORD = "robot1234";
+// =============================
 
 const int LED_PIN = 2;
 
@@ -38,17 +38,11 @@ void setup()
 
     pinMode(LED_PIN, OUTPUT);
 
-    // Connexion Wi-Fi
-    Serial.print("Connexion Wi-Fi");
-    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-    while (WiFi.status() != WL_CONNECTED)
-    {
-        delay(500);
-        Serial.print(".");
-    }
-    Serial.println();
-    Serial.print("IP : ");
-    Serial.println(WiFi.localIP());
+    // Démarrer le hotspot Wi-Fi
+    Serial.println("Démarrage du hotspot...");
+    WiFi.softAP(WIFI_SSID, WIFI_PASSWORD);
+    Serial.print("Hotspot actif. IP : ");
+    Serial.println(WiFi.softAPIP());
 
     // Démarrer UDP
     udp.begin(4210);
@@ -145,8 +139,8 @@ Avantages :
 ## Test complet
 
 1. Téléverse ce firmware
-2. Note l'IP dans le Moniteur Série
-3. **Préviens le Groupe A** → ils lancent leur `driver_station.py` ou `joystick_control.py`
+2. Vérifie dans le Moniteur Série : `Hotspot actif. IP : 192.168.4.1` puis `Robot prêt !`
+3. **Préviens le Groupe A** → ils connectent leur PC au Wi-Fi `Robot-ESP32` (mot de passe : `robot1234`) et lancent leur `driver_station.py` ou `joystick_control.py`
 4. Teste toutes les commandes :
    - PING → réponse PONG
    - LED_ON / LED_OFF → LED réagit
