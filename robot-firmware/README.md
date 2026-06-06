@@ -32,6 +32,7 @@ On va donc apprendre à **structurer le code** comme dans l'industrie.
 - [ ] Écrire un **wrapper** qui isole la couche réseau du reste du code
 - [ ] Simuler le comportement du robot pour tester sans matériel
 - [ ] Tester le firmware depuis Python avec un **Fake Driver Station**
+- [ ] Contrôler de vrais moteurs via **I2C**
 - [ ] Comprendre **pourquoi** cette architecture permet de changer de plateforme sans tout réécrire
 
 ---
@@ -48,16 +49,21 @@ On va donc apprendre à **structurer le code** comme dans l'industrie.
     │  Créer protocol.h et la struct RobotState
     ▼
 03-wrapper-udp.md
-    │  Écrire comm.h / comm.cpp / robot.h / robot.cpp
+    │  Écrire comm.h / comm_udp.cpp / robot.h / robot.cpp
     │  Assembler le firmware complet
     │  Tester avec fake_driver_station.py
     ▼
-  🎉 Firmware structuré et testable !
+04-moteurs-i2c.md
+    │  Remplacer la simulation par la vraie commande I2C
+    │  Contrôleur JGB37, registres, conversion de types
+    ▼
+  🎉 Firmware réel qui contrôle de vrais moteurs !
 ```
 
 - [ ] [01 — Concevoir le protocole de communication](./01-protocole.md) *~20 min*
 - [ ] [02 — Organiser le code : fichiers .h et .cpp](./02-structure-projet.md) *~25 min*
 - [ ] [03 — Wrapper UDP : la couche communication](./03-wrapper-udp.md) *~40 min*
+- [ ] [04 — Contrôle des moteurs par I2C](./04-moteurs-i2c.md) *~35 min*
 
 ---
 

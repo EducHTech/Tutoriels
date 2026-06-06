@@ -499,4 +499,4 @@ C'est la puissance du wrapper !
 
 ---
 
-⬅ [Précédent — Structure .h/.cpp](./02-structure-projet.md) · [Retour accueil projet](./README.md)
+⬅ [Précédent — Structure .h/.cpp](./02-structure-projet.md) · [Suivant ➡ Moteurs I2C](./04-moteurs-i2c.md)
