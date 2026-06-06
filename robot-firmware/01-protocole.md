@@ -1,9 +1,8 @@
-# B-08 — Concevoir un protocole de communication
+# 01 — Concevoir le protocole de communication
 
-> **Pour qui :** Groupe B
 > **Durée estimée :** 20 min
-> **Prérequis :** [Firmware final](./07-robot-final.md)
-> **Objectif :** définir un protocole de communication clair entre le Driver Station et le robot
+> **Prérequis :** [Firmware final ESP32](../groupe-B-robot-esp32/07-robot-final.md)
+> **Objectif :** définir un protocole clair entre le script Python de commande et le firmware du robot
 
 ---
 
@@ -13,8 +12,8 @@ Dans le firmware précédent, on envoyait des messages comme `LED_ON`, `MOTOR:12
 C'était bien pour apprendre, mais pour un vrai robot il faut quelque chose de plus **structuré** et de plus **complet**.
 
 Un **protocole**, c'est un contrat :
-- Le Groupe A s'engage à envoyer les commandes dans un format précis.
-- L'ESP32 s'engage à répondre dans un format précis.
+- Le script Python (`fake_driver_station.py`) s'engage à envoyer les commandes dans un format précis.
+- Le firmware ESP32 s'engage à répondre dans un format précis.
 - Si tout le monde respecte le contrat, le système fonctionne.
 
 > **Analogie :** quand tu commandes une pizza par téléphone, il y a un protocole implicite : tu donnes ton adresse, tes garnitures, ton numéro. Si tu parles dans n'importe quel ordre, le livreur est perdu.
@@ -34,13 +33,15 @@ Notre robot a :
 **Flux de données :**
 
 ```
-Driver Station  ──────────────────────────►  Robot
-                  SET_MOTORS:v1,v2,v3,v4,v5,v6
-                  SET_SERVOS:a1,a2,a3
+fake_driver_station.py  ────────────────────►  Firmware ESP32
+                          SET_MOTORS:v1,...,v6
+                          SET_SERVOS:a1,a2,a3
+                          PING
 
-Driver Station  ◄──────────────────────────  Robot
-                  ENCODERS:p1,p2,p3,p4,p5,p6
-                  GYRO:angle
+fake_driver_station.py  ◄────────────────────  Firmware ESP32
+                          ENCODERS:p1,...,p6
+                          GYRO:angle
+                          PONG
 ```
 
 ---
@@ -110,30 +111,39 @@ Le robot tourne en boucle. À chaque cycle :
 
 ```
 1. Y a-t-il un paquet UDP entrant ?
-   ├─ Oui → le parser et exécuter la commande
-   └─ Non → continuer
+   ├─ Oui → parser la commande, l'exécuter, noter l'heure
+   └─ Non → vérifier le watchdog
 
-2. Envoyer les données de retour vers le Driver Station :
+2. Watchdog : combien de temps depuis le dernier message ?
+   ├─ < 500 ms  → tout va bien, continuer
+   └─ ≥ 500 ms  → ARRÊT D'URGENCE (tous les moteurs à 0)
+
+3. Envoyer les données de retour :
    - ENCODERS:...
    - GYRO:...
 ```
 
 ```
-      ┌─────────────────────────────┐
-      │         loop()              │
-      │                             │
-      │  ┌─────────────────────┐    │
-      │  │  Lire paquet UDP    │    │
-      │  │  Parser commande    │    │
-      │  │  Exécuter           │    │
-      │  └─────────────────────┘    │
-      │                             │
-      │  ┌─────────────────────┐    │
-      │  │  Envoyer ENCODERS   │    │
-      │  │  Envoyer GYRO       │    │
-      │  └─────────────────────┘    │
-      └─────────────────────────────┘
+      ┌──────────────────────────────────────┐
+      │               loop()                 │
+      │                                      │
+      │  ┌──────────────────────────────┐    │
+      │  │  Lire paquet UDP             │    │
+      │  │  ├─ reçu → parser + exécuter │    │
+      │  │  └─ rien → vérifier watchdog │    │
+      │  └──────────────────────────────┘    │
+      │                                      │
+      │  ┌──────────────────────────────┐    │
+      │  │  Envoyer ENCODERS + GYRO     │    │
+      │  └──────────────────────────────┘    │
+      └──────────────────────────────────────┘
 ```
+
+### Pourquoi un watchdog ?
+
+Si le câble réseau se débranche, si le script Python plante, si le Wi-Fi coupe — le robot ne reçoit plus de commande. Sans protection, il continuerait à tourner à la dernière vitesse reçue indéfiniment. C'est dangereux.
+
+Le **watchdog** (chien de garde) surveille le temps écoulé depuis le dernier message reçu. Au-delà de 500 ms de silence : **arrêt complet**.
 
 ---
 
@@ -151,7 +161,7 @@ float angle = 45.2;
 int angleTenths = 452;   // 45.2 * 10
 ```
 
-Le Groupe A divise par 10 à la réception :
+Le script Python divise par 10 à la réception :
 
 ```python
 angle = int(valeur) / 10.0   # → 45.2
@@ -182,4 +192,4 @@ Si on envoyait 6 messages séparés, ils pourraient arriver dans un ordre diffé
 
 ---
 
-⬅ [Précédent — Firmware final](./07-robot-final.md) · [Suivant ➡ Structure en fichiers .h/.cpp](./09-structure-projet-lib.md)
+⬅ [Précédent — Firmware final ESP32](../groupe-B-robot-esp32/07-robot-final.md) · [Suivant ➡ Structure en fichiers .h/.cpp](./02-structure-projet.md)

@@ -1,8 +1,7 @@
-# B-09 — Organiser son code : fichiers `.h` et `.cpp`
+# 02 — Organiser son code : fichiers `.h` et `.cpp`
 
-> **Pour qui :** Groupe B
 > **Durée estimée :** 25 min
-> **Prérequis :** [Protocole de communication](./08-protocole-robot.md)
+> **Prérequis :** [Protocole de communication](./01-protocole.md)
 > **Objectif :** comprendre pourquoi et comment séparer son code en plusieurs fichiers
 
 ---
@@ -65,16 +64,19 @@ Voici l'organisation que l'on va construire :
 
 ```
 robot_esp32/
-├── robot_esp32.ino       ← fichier principal (setup/loop)
-├── protocol.h            ← définitions du protocole (constantes, struct)
-├── comm.h                ← déclaration de la couche communication
-├── comm.cpp              ← implémentation UDP (ou Bluetooth plus tard)
-├── robot.h               ← déclaration de la logique robot
-└── robot.cpp             ← implémentation moteurs, servos, capteurs
+├── robot_esp32.ino    ← fichier principal (setup/loop)
+├── protocol.h         ← définitions du protocole (constantes, struct)
+├── comm.h             ← interface de la couche communication (ne change jamais)
+├── comm_udp.cpp       ← implémentation UDP/Wi-Fi  ⇐ à remplacer pour Bluetooth
+├── robot.h            ← déclaration de la logique robot
+└── robot.cpp          ← implémentation moteurs, servos, capteurs
 ```
 
 > [!TIP]
 > Tous ces fichiers doivent être dans le **même dossier**. Arduino IDE les compilera tous ensemble automatiquement.
+
+> [!NOTE]
+> Tu vois `comm_udp.cpp` ? Ce nom n'est pas un hasard. Si demain on passe au Bluetooth, on crée `comm_bt.cpp` avec les mêmes 4 fonctions, et on supprime `comm_udp.cpp`. **`comm.h` et tout le reste ne bougent pas.**
 
 ---
 
@@ -167,4 +169,4 @@ Le `.h` expose **l'interface** (ce que le module peut faire) sans révéler les 
 
 ---
 
-⬅ [Précédent — Protocole](./08-protocole-robot.md) · [Suivant ➡ Wrapper UDP](./10-wrapper-udp.md)
+⬅ [Précédent — Protocole](./01-protocole.md) · [Suivant ➡ Wrapper UDP](./03-wrapper-udp.md)

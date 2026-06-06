@@ -86,3 +86,14 @@ Ce sont les moments où les deux groupes doivent travailler ensemble.
 ## J'ai fini en avance ?
 
 Va voir les défis bonus de ton groupe ou aide le groupe partenaire !
+
+---
+
+## 🚀 Projet suivant — Firmware robot professionnel
+
+Les groupes A et B ont terminé ? On change de braquet.
+
+Le vrai robot embarque 6 moteurs avec encodeurs, 3 servos et un gyroscope.
+Ce projet apprend à structurer un firmware C++ comme dans l'industrie : modules `.h`/`.cpp`, wrapper réseau remplaçable, protocole documenté.
+
+👉 [Projet Robot — Firmware professionnel](./robot-firmware/README.md) *~1h30*
