@@ -21,6 +21,16 @@ L'ESP32 reçoit des commandes par Wi-Fi et les exécute (LED, moteurs, capteurs)
 
 ---
 
+## 🚀 Suite — Vers un projet professionnel
+
+Une fois le parcours principal terminé, passe à la série suivante :
+
+- [ ] [B-08 — Concevoir un protocole de communication](./08-protocole-robot.md) *~20 min*
+- [ ] [B-09 — Organiser son code : fichiers .h et .cpp](./09-structure-projet-lib.md) *~25 min*
+- [ ] [B-10 — Wrapper UDP : la couche communication](./10-wrapper-udp.md) *~40 min*
+
+---
+
 ## Points de synchro 🔄
 
 | Synchro | Ce que tu dois signaler au Groupe A |
