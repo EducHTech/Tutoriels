@@ -76,7 +76,98 @@ while (Wire.available()) {
 
 ---
 
-## Étape 5 — Faire tourner les 4 moteurs (I2C)
+## Étape 5 — Moteurs On-Board avec Encodeurs (SLOT1/SLOT2)
+
+### 🎯 Objectif
+Faire tourner les moteurs M1 et M2 (connectés aux slots SLOT1 et SLOT2) en utilisant les encodeurs intégrés pour mesurer la vitesse.
+
+### ✅ Code fonctionnel complet
+
+```cpp
+#include <MeAuriga.h>
+#include <Wire.h>
+
+MeEncoderOnBoard Encoder_1(SLOT1);
+MeEncoderOnBoard Encoder_2(SLOT2);
+
+void isr_process_encoder1(void) {
+  if (digitalRead(Encoder_1.getPortB()) == 0)
+    Encoder_1.pulsePosMinus();
+  else
+    Encoder_1.pulsePosPlus();
+}
+
+void isr_process_encoder2(void) {
+  if (digitalRead(Encoder_2.getPortB()) == 0)
+    Encoder_2.pulsePosMinus();
+  else
+    Encoder_2.pulsePosPlus();
+}
+
+ISR(TIMER1_COMPA_vect) {
+  Encoder_1.updateSpeed();
+  Encoder_2.updateSpeed();
+}
+
+void setup() {
+  Serial.begin(115200);
+
+  attachInterrupt(Encoder_1.getIntNum(), isr_process_encoder1, RISING);
+  attachInterrupt(Encoder_2.getIntNum(), isr_process_encoder2, RISING);
+
+  TCCR1A = _BV(WGM10);
+  TCCR1B = _BV(CS11) | _BV(WGM12);
+  TIMSK1 = _BV(OCIE1A);
+  OCR1A  = 0xF9;
+
+  // Configuration identique au firmware de référence
+  Encoder_1.setSpeedPid(0.18, 0, 0);
+  Encoder_2.setSpeedPid(0.18, 0, 0);
+  Encoder_1.setMotionMode(DIRECT_MODE);
+  Encoder_2.setMotionMode(DIRECT_MODE);
+}
+
+void loop() {
+  Encoder_1.loop();
+  Encoder_2.loop();
+
+  Encoder_1.runSpeed(50);  // tr/min
+  Encoder_2.runSpeed(50);
+
+  Serial.println(Encoder_1.getCurPos());
+
+  delay(200);
+}
+```
+
+### 📖 Explications clés
+
+| Ligne | Fonction |
+|---|---|
+| `MeEncoderOnBoard Encoder_1(SLOT1)` | Crée un objet encodeur pour le moteur en SLOT1 |
+| `attachInterrupt()` | Attache les fonctions ISR pour détecter les impulsions d'encodeur |
+| `ISR(TIMER1_COMPA_vect)` | Routine de service d'interruption du Timer1 — met à jour la vitesse tous les ~10ms |
+| `setSpeedPid(0.18, 0, 0)` | Configure le PID de vitesse (P=0.18, I=0, D=0) |
+| `setMotionMode(DIRECT_MODE)` | Mode de contrôle direct (pas de rampe d'accélération) |
+| `runSpeed(50)` | Commande la vitesse en tr/min |
+| `getCurPos()` | Retourne la position actuelle en impulsions |
+
+### 🧪 Test attendu
+- Les deux roues tournent à ~50 tr/min
+- La position augmente dans le moniteur série
+- Les deux moteurs tournent à la même vitesse
+
+### 🔍 Debug rapide
+| Symptôme | Cause probable |
+|---|---|
+| Aucun mouvement | Moteurs non alimentés, ou mauvais slot (SLOT1/SLOT2) |
+| Un seul moteur tourne | Encodeur déconnecté sur l'autre moteur |
+| Vitesse instable | PID mal calibré — ajuste le coefficient P (0.18) |
+| Erreur de compilation | Bibliothèque `MeAuriga.h` manquante |
+
+---
+
+## Étape 6 — Faire tourner les 4 moteurs Hiwonder (I2C)
 
 ### 🎯 Objectif
 Envoyer une vitesse à chacun des 4 moteurs Hiwonder via I2C.
@@ -164,7 +255,7 @@ void loop() {
 
 ---
 
-## Étape 6 — Contrôler 3 servos (D44, A3, A2)
+## Étape 7 — Contrôler 3 servos (D44, A3, A2)
 
 ### 🎯 Objectif
 Envoyer des angles à 3 servomoteurs connectés aux pins **D44**, **A3** et **A2**.
@@ -241,6 +332,7 @@ void loop() {
 ## ✅ Récap — ce que tu sais maintenant
 
 - [x] Lire les encodeurs via I2C depuis le module Hiwonder
+- [x] Faire tourner les moteurs on-board (SLOT1/SLOT2) avec encodeurs et interruptions
 - [x] Envoyer des vitesses à 4 moteurs via I2C (registre `0x33`)
 - [x] Contrôler 3 servos avec `Servo.h`
 
