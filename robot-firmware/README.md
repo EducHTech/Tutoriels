@@ -57,13 +57,41 @@ On va donc apprendre à **structurer le code** comme dans l'industrie.
     │  Remplacer la simulation par la vraie commande I2C
     │  Contrôleur JGB37, registres, conversion de types
     ▼
-  🎉 Firmware réel qui contrôle de vrais moteurs !
+  🎉 Firmware réel sur ESP32 — et maintenant : migration Auriga !
+    ▼
+05-capteurs-auriga.md  (Étudiant A)
+    │  Gyroscope, batterie, encodeurs on-board
+    ▼
+06-moteurs-auriga.md  (Étudiants B + C)
+    │  Encodeurs I2C + 4 moteurs Hiwonder + 3 servos
+    ▼
+07-migration-ble.md  (Étudiant C)
+    │  Remplacer WiFi/UDP par Bluetooth BLE
+    │  Fake Driver Station BLE (Python)
+    ▼
+08-firmware-final-auriga.md  (Toute l'équipe)
+    │  Assembler les 3 parties en un firmware complet
+    ▼
+  🎉 Robot Auriga contrôlé par BLE !
 ```
+
+### Parcours ESP32 (étapes 01–04)
 
 - [ ] [01 — Concevoir le protocole de communication](./01-protocole.md) *~20 min*
 - [ ] [02 — Organiser le code : fichiers .h et .cpp](./02-structure-projet.md) *~25 min*
 - [ ] [03 — Wrapper UDP : la couche communication](./03-wrapper-udp.md) *~40 min*
 - [ ] [04 — Contrôle des moteurs par I2C](./04-moteurs-i2c.md) *~35 min*
+
+### Migration Auriga — ME Mega 2560 + BLE (étapes 05–08)
+
+> **Organisation :** les étapes 05, 06 et 07 se font **en parallèle** (3 étudiants simultanément), puis l'étape 08 rassemble tout.
+
+| Étudiant | Étapes | Durée |
+|---|---|---|
+| **A** | [05 — Capteurs Auriga](./05-capteurs-auriga.md) | ~30 min |
+| **B** | [06 — Moteurs Auriga](./06-moteurs-auriga.md) (étapes 4 et 5) | ~25 min |
+| **C** | [06 — Servos](./06-moteurs-auriga.md) (étape 6) + [07 — Migration BLE](./07-migration-ble.md) | ~35 min |
+| **Tous** | [08 — Firmware final Auriga](./08-firmware-final-auriga.md) | ~30 min |
 
 ---
 
